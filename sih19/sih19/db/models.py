@@ -9,8 +9,8 @@ class Region(models.Model):
 	pincode = models.CharField(max_length=6, primary_key=True)
 	city = models.CharField(max_length=255, default=None)
 	state = models.CharField(max_length=255, default=None)
-	longitude = models.FloatField(default=25.3176)
-	latitude = models.FloatField(default=82.9739)
+	longitude = models.FloatField(default=82.9739)
+	latitude = models.FloatField(default=25.3176)
 
 
 class User(AbstractUser):
@@ -84,6 +84,7 @@ class Hospital(User):
 	dengue_free = models.PositiveSmallIntegerField()
 	rating = models.IntegerField(validators=[MaxValueValidator(5),MinValueValidator(1)],default=3)
 
+
 class HospitalCurrent(models.Model):
 	hospital = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
 	time = models.DateTimeField(auto_now_add=True)
@@ -122,6 +123,7 @@ class Lab(User):
 	certificate = models.ImageField(upload_to=lab_certi_path)
 	owner = models.CharField(max_length=255)
 	govt_id = models.CharField(max_length=255)
+	free = models.BooleanField(default=False)
 
 
 
