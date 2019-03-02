@@ -69,4 +69,7 @@ class LabListCreateAPIView(generics.ListCreateAPIView):
 	queryset = models.Lab.objects.all()
 	serializer_class = serializers.LabSerializer
 
+	def post(self,request,*args,**kwargs):
+		print(request.data)
+		return self.create(request, *args, **kwargs)
 
