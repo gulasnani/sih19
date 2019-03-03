@@ -79,6 +79,10 @@ class Report2ListCreateAPIView(generics.ListCreateAPIView):
 	queryset = models.Report2.objects.all()
 	serializer_class = serializers.Report2Serializer
 
+	def post(self, request, *args, **kwargs):
+		print(request.data)
+		return self.create(request, *args, **kwargs)
+
 
 class WaterbodyReportListCreateAPIView(generics.ListCreateAPIView):
 	queryset = models.WaterbodyReport.objects.all()
