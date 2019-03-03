@@ -72,3 +72,24 @@ class LabSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = models.Lab
 		exclude = ('certificate',)
+
+
+class HospitalRegionSerializer(serializers.ModelSerializer):
+	pincode = RegionSerializer()
+	class Meta:
+		model = models.Hospital
+		fields = '__all__'
+
+
+class LabRegionSerializer(serializers.ModelSerializer):
+	pincode = RegionSerializer()
+	class Meta:
+		model = models.Lab
+		fields = '__all__'
+
+
+class UserRegionSerializer(serializers.ModelSerializer):
+	pincode = RegionSerializer()
+	class Meta:
+		model = models.User
+		fields = '__all__'

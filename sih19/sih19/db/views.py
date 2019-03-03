@@ -6,8 +6,19 @@ from rest_framework import generics
 # Create your views here.
 
 class UserListCreateAPIView(generics.ListCreateAPIView):
-	queryset = models.User.objects.all()
+	queryset = models.User.objects.select_related()
 	serializer_class = serializers.UserSerializer
+
+	def get_serializer_class(self):
+		assert self.serializer_class is not None,(
+			"'%s' should either include a `serializer_class` attribute, "
+			"or override the `get_serializer_class()` method."
+			% self.__class__.__name__
+		)
+		if self.request.method == "GET":
+			return serializers.UserRegionSerializer
+
+		return self.serializer_class
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
@@ -41,6 +52,22 @@ class PredictListCreateAPIView(generics.ListCreateAPIView):
 
 
 class HospitalListCreateAPIView(generics.ListCreateAPIView):
+	queryset = models.Hospital.objects.select_related()
+	serializer_class = serializers.HospitalSerializer
+
+	def get_serializer_class(self):
+		assert self.serializer_class is not None,(
+			"'%s' should either include a `serializer_class` attribute, "
+			"or override the `get_serializer_class()` method."
+			% self.__class__.__name__
+		)
+		if self.request.method == "GET":
+			return serializers.HospitalRegionSerializer
+
+		return self.serializer_class
+
+
+class HospitalUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.Hospital.objects.all()
 	serializer_class = serializers.HospitalSerializer
 
@@ -66,10 +93,21 @@ class NewsListCreateAPIView(generics.ListCreateAPIView):
 
 
 class LabListCreateAPIView(generics.ListCreateAPIView):
-	queryset = models.Lab.objects.all()
+	queryset = models.Lab.objects.select_related()
 	serializer_class = serializers.LabSerializer
 
 	def post(self,request,*args,**kwargs):
 		print(request.data)
 		return self.create(request, *args, **kwargs)
+
+	def get_serializer_class(self):
+		assert self.serializer_class is not None,(
+			"'%s' should either include a `serializer_class` attribute, "
+			"or override the `get_serializer_class()` method."
+			% self.__class__.__name__
+		)
+		if self.request.method == "GET":
+			return serializers.LabRegionSerializer
+
+		return self.serializer_class
 

@@ -120,9 +120,9 @@ def lab_certi_path(instance,filename):
 
 
 class Lab(User):
-	certificate = models.ImageField(upload_to=lab_certi_path)
-	owner = models.CharField(max_length=255)
-	govt_id = models.CharField(max_length=255)
+	certificate = models.ImageField(upload_to=lab_certi_path,null=True)
+	owner = models.CharField(max_length=255,blank=True,null=True)
+	govt_id = models.CharField(max_length=255,blank=True,null=True)
 	free = models.BooleanField(default=False)
 
 
