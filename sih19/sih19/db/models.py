@@ -23,7 +23,7 @@ class User(AbstractUser):
 			('P','Person'),
 			('H','Hospital'),
 			('L','Lab')
-		) 
+		)
 	age = models.IntegerField(null=True)
 	gender = models.CharField(GENDER_CHOICES,null=True,max_length=1)
 	phone = models.CharField(max_length=13,null=True)
@@ -33,9 +33,7 @@ class User(AbstractUser):
 
 	def __str__(self):
 		return str(self.id) + str(self.first_name)
-
-	# class Meta:
-	# 	unique_together = (('first_name','last_name'),)
+		#return str(self.id)
 
 
 def user_directory_path(instance,filename):

@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from . import serializers
 from . import models
-from rest_framework import generics, views
-from rest_framework.response import Response
+from rest_framework import generics
 
 # Create your views here.
 
@@ -20,17 +19,6 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
 			return serializers.UserRegionSerializer
 
 		return self.serializer_class
-
-
-class UserNameAPIView(views.APIView):
-
-	def get(self, request, format=None):
-		user = models.User.objects.filter(first_name=request.first_name,last_name=request.last_name)
-		if user.is_empty():
-			serializer = UserSerializer(data=request.data)
-			serializer.save()
-		return Response(user.id)
-
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
