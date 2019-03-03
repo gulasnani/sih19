@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
 	path('user/', views.UserListCreateAPIView.as_view(), name='user_list'),
 	path('user/update/<int:pk>/', views.UserUpdateAPIView.as_view(), name='user_update'),
+	path('mylogin/', views.UserNameAPIView.as_view(), name='user_api'),
 	path('region/', views.RegionListCreateAPIView.as_view(), name='region_list'),
 	path('region/update/<int:pk>/', views.RegionUpdateAPIView.as_view(), name='region_update'),
 	path('report/', views.ReportListCreateAPIView.as_view(), name='report_list'),

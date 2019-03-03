@@ -35,6 +35,9 @@ class User(AbstractUser):
 		return str(self.id) + str(self.first_name)
 		#return str(self.id)
 
+	class Meta:
+		unique_together = (('first_name','last_name'),)
+
 
 def user_directory_path(instance,filename):
 	return 'reports/user_{0}/user_{1}/{2}/{3}'.format(instance.sentByUser.id, instance.sentForUser.id, 

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from . import serializers
 from . import models
-from rest_framework import generics
-
+from rest_framework import generics, views, status
+from rest_framework.response import Response
+import time
 # Create your views here.
 
 class UserListCreateAPIView(generics.ListCreateAPIView):
@@ -19,6 +20,32 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
 			return serializers.UserRegionSerializer
 
 		return self.serializer_class
+
+
+class UserNameAPIView(views.APIView):
+
+	def get(self, request, format=None):
+		# print(request.data)
+		data = dict(request.query_params)
+		user = models.User.objects.filter(first_name=data.get('first_name')[0],last_name=data.get('last_name')[0])
+		if not user.exists():
+			#print(type(request.data))
+			curr_time = time.time()
+			request.data['password']=data.get('last_name')[0]
+			request.data['username']=data.get('first_name')[0] +  str(curr_time)
+			request.data['first_name']=data.get('first_name')[0]
+			request.data['last_name']=data.get('last_name')[0]
+
+			serializer = serializers.UserSerializer(data=request.data)
+			if serializer.is_valid():
+				serializer.save()
+				user = models.User.objects.filter(first_name=data.get('first_name')[0],last_name=data.get('last_name')[0])
+			else:
+				print(serializer.errors)
+				return Response({'msg':'failed'}, status = status.HTTP_404_NOT_FOUND)
+		id = user.first().id
+		print('The idis', id)
+		return Response(id)
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
