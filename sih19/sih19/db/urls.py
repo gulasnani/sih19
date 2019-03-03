@@ -16,5 +16,6 @@ urlpatterns = [
 	path('heatmap_predicted/', views.HeatmapPredictedListCreateAPIView.as_view(), name='heatmap_predicted_list'),
 	path('news/', views.NewsListCreateAPIView.as_view(), name='news_list'),
 	path('lab/', views.LabListCreateAPIView.as_view(), name='lab_list'),
-	path('hospital_ud/<int:pk>/', views.HospitalUpdateDestroyAPIView.as_view(), name = 'lab_ud')
+	path('hospital_ud/<int:pk>/', views.HospitalUpdateDestroyAPIView.as_view(), name = 'lab_ud'),
+	path('user_ud/<int:pk>/', views.UserUpdateDestroyAPIView.as_view(), name = 'user_ud')
 ]
