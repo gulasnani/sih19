@@ -34,14 +34,8 @@ class UserNameAPIView(views.APIView):
 
 
 class UserUpdateAPIView(generics.UpdateAPIView):
-	queryset = models.User.objects.all() 
-	serializer_class = serializers.UserSerializer
-
-
-class UserUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.User.objects.all()
 	serializer_class = serializers.UserSerializer
-
 
 
 class RegionListCreateAPIView(generics.ListCreateAPIView):
