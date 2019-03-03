@@ -72,6 +72,11 @@ class HospitalUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 	serializer_class = serializers.HospitalSerializer
 
 
+class UserUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+	queryset = models.User.objects.all()
+	serializer_class = serializers.UserSerializer
+
+
 class HospitalCurrentListCreateAPIView(generics.ListCreateAPIView):
 	queryset = models.HospitalCurrent.objects.all()
 	serializer_class = serializers.HospitalCurrentSerializer
