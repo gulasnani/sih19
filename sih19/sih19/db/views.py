@@ -47,6 +47,13 @@ class UserNameAPIView(views.APIView):
 		print('The idis', id)
 		return Response(id)
 
+# class ReportAPIView(views.APIView):
+
+# 	def post(self, request, format=None):
+# 		json = json.loads(request.body)
+
+
+
 
 class UserUpdateAPIView(generics.UpdateAPIView):
 	queryset = models.User.objects.all()
@@ -66,6 +73,11 @@ class RegionUpdateAPIView(generics.UpdateAPIView):
 class ReportListCreateAPIView(generics.ListCreateAPIView):
 	queryset = models.Report.objects.all()
 	serializer_class = serializers.ReportSerializer
+
+
+class Report2ListCreateAPIView(generics.ListCreateAPIView):
+	queryset = models.Report2.objects.all()
+	serializer_class = serializers.Report2Serializer
 
 
 class WaterbodyReportListCreateAPIView(generics.ListCreateAPIView):

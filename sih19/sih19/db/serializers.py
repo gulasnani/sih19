@@ -22,6 +22,14 @@ class ReportSerializer(serializers.ModelSerializer):
 		fields='__all__'
 
 
+class Report2Serializer(serializers.ModelSerializer):
+	class Meta:
+		model = models.Report2
+		# exclude = ('pdf_path',)
+		fields='__all__'
+
+
+
 class WaterbodyReportSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = models.WaterbodyReport

@@ -57,6 +57,45 @@ class Report(models.Model):
 		return str(self.disease)
 
 
+def lab_certi_path(instance,filename):
+	return 'certificates/user_{0}/{1}/{2}'.format(instance.sent_by_user.id, 
+		dateutil.parser.parse(str(instance.report_time)).date(), filename)
+
+
+class Report2(models.Model):
+	GENDER_CHOICES = (
+			('M','Male'),
+			('F','Female'),
+			('O','Other')
+		)
+	firstName = models.CharField(max_length=255)
+	lastName = models.CharField(max_length=255)
+	age = models.IntegerField(auto_now_add=True)
+	pincode = models.CharField(max_length=255, blank=True)
+	number = models.CharField(max_length=255, blank=True)
+	#pdf_path = models.FileField(upload_to='reports/user_{0}/user_{1}/%Y/%m/%d'.format(str(sentForUser),str(sentByUser)),max_length=500,null=True)
+	address = models.TextField(blank=True)
+	dengueBed = models.IntegerField(blank=True)
+	malariaBed = models.IntegerField(blank=True)
+	tuberculosisBed = models.IntegerField(blank=True)
+	owner = models.CharField(max_length=255, blank=True)
+	govt_id = models.CharField(max_length=255, blank=True)
+	adhaar = models.CharField(max_length=255, blank=True)
+	docRegNo = models.CharField(max_length=255, blank=True)
+	disease = models.CharField(max_length=255, blank=True)
+	hosName = models.CharField(max_length=255, blank=True)
+	HosReg = models.CharField(max_length=255, blank=True)
+	accreditation = models.CharField(max_length=255, blank=True)
+	report_upload = models.FileField(upload_to=user_directory_path2,null=True, blank=True)
+	certi_upload = models.ImageField(upload_to=lab_certi_path,null=True, blank=True)
+	report_disease = models.CharField(max_length=255, blank=True)
+	gender = models.CharField(GENDER_CHOICES,null=True,max_length=1, blank=True)
+
+	def __str__(self):
+		return str(self.disease)
+
+
+
 def user_image_path(instance,filename):
 	return 'images/user_{0}/{1}/{2}'.format(instance.sent_by_user.id, 
 		dateutil.parser.parse(str(instance.report_time)).date(), filename)
@@ -115,11 +154,6 @@ class News(models.Model):
 	article_text_path = models.FilePathField(path="/")
 	article_img_path = models.FilePathField(path="/")
 	pincode = models.ForeignKey(Region,on_delete=models.CASCADE)
-
-
-def lab_certi_path(instance,filename):
-	return 'certificates/user_{0}/{1}/{2}'.format(instance.sent_by_user.id, 
-		dateutil.parser.parse(str(instance.report_time)).date(), filename)
 
 
 class Lab(User):
